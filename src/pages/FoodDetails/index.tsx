@@ -225,7 +225,7 @@ const FoodDetails: React.FC = () => {
           <Title>Total do pedido</Title>
           <PriceButtonContainer>
             <TotalPrice testID="cart-total">
-              {formatValue(cartTotal)}
+              {cartTotal ? formatValue(cartTotal) : ''}
             </TotalPrice>
             <QuantityContainer>
               <Icon

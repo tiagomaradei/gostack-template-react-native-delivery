@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
-// import { useIsFocused } from '@react-navigation/native';
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
 
@@ -39,7 +38,6 @@ interface Food {
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<Food[]>([]);
-  // const isFocused = useIsFocused();
 
   useEffect(() => {
     async function loadOrders(): Promise<void> {
