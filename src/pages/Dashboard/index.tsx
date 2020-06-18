@@ -69,14 +69,21 @@ const Dashboard: React.FC = () => {
       if (response.data) {
         const foodsData = response.data;
 
+        const formattedFoods = foodsData.map(food => {
+          return {
+            ...food,
+            formattedPrice: formatValue(food.price),
+          };
+        });
+
         if (searchValue) {
-          const filteredFoods = foodsData.filter(food =>
+          const filteredFoods = formattedFoods.filter(food =>
             food.name.includes(searchValue),
           );
 
           setFoods(filteredFoods);
         } else {
-          setFoods(foodsData);
+          setFoods(formattedFoods);
         }
       }
     }
