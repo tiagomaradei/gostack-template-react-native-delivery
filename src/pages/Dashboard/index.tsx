@@ -3,7 +3,6 @@ import { Image, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import AppRoutes from 'src/routes/app.routes';
 import Logo from '../../assets/logo-header.png';
 import SearchInput from '../../components/SearchInput';
 
