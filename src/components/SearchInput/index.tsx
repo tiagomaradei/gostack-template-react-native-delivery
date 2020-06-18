@@ -18,7 +18,6 @@ const SearchInput: React.FC<InputProps> = ({ value = '', ...rest }) => {
 
   const handleInputBlur = useCallback(() => {
     setIsFocused(false);
-
     setIsFilled(!!value);
   }, [value]);
 

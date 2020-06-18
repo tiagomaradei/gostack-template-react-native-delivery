@@ -3,6 +3,7 @@ import { Image, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import AppRoutes from 'src/routes/app.routes';
 import Logo from '../../assets/logo-header.png';
 import SearchInput from '../../components/SearchInput';
 
@@ -54,12 +55,30 @@ const Dashboard: React.FC = () => {
   const navigation = useNavigation();
 
   async function handleNavigate(id: number): Promise<void> {
-    // Navigate do ProductDetails page
+    navigation.navigate('FoodDetails', { id });
   }
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      // Load Foods from API
+      const response = await api.get<Food[]>('foods', {
+        params: {
+          category: selectedCategory,
+        },
+      });
+
+      if (response.data) {
+        const foodsData = response.data;
+
+        if (searchValue) {
+          const filteredFoods = foodsData.filter(food =>
+            food.name.includes(searchValue),
+          );
+
+          setFoods(filteredFoods);
+        } else {
+          setFoods(foodsData);
+        }
+      }
     }
 
     loadFoods();
@@ -67,14 +86,28 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadCategories(): Promise<void> {
-      // Load categories from API
+      const response = await api.get<Category[]>('categories');
+
+      if (response.data) {
+        const categoriesData = response.data;
+
+        if (searchValue) {
+          const filteredCategories = categoriesData.filter(category =>
+            category.title.includes(searchValue),
+          );
+
+          setCategories(filteredCategories);
+        } else {
+          setCategories(categoriesData);
+        }
+      }
     }
 
     loadCategories();
   }, [selectedCategory, searchValue]);
 
   function handleSelectCategory(id: number): void {
-    // Select / deselect category
+    setSelectedCategory(id);
   }
 
   return (
